@@ -1,0 +1,60 @@
+﻿@model Professor
+
+@{
+    ViewData["Title"] = "Add a new Professor";
+}
+<div class="row mt-3">
+    <div class="card col-md-8 offset-2">
+        <div class="card-body">
+            <h5 class="card-title">Añadir Nuevo Profesor</h5>
+
+            <!-- Horizontal Form -->
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group text-center mb-2">
+                    <img class="rounded" style="max-width: 100px;" id="ProfilePicturePreview" />
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="ProfilePictureURL" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="ProfilePictureURL" type="text" class="form-control">
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="FullName" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="FullName" type="text" class="form-control">
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Bio" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea asp-for="Bio" class="form-control"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <button asp-action="Index" class="btn btn-secondary">Mostrar Todos</button>
+                    <input type="submit" value="Añadir" class="btn btn-primary">
+                </div>
+            </form><!-- End Horizontal Form -->
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+
+        $("#ProfilePictureURL").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}

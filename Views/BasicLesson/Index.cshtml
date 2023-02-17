@@ -1,0 +1,71 @@
+﻿@using TutoSearch.Data.Static;
+@model IEnumerable<BasicLesson>
+
+@{
+    ViewData["Title"] = "List Of basicLessons";
+}
+
+<div class="container-fluid mt-3" style="max-width: 1120px;">
+    <div class="row">
+        @foreach (var basicLesson in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3" style="width: 350px;">
+                    <div class="d-flex justify-content-center align-items-center m-2">
+                        <video controls preload="auto" style="max-width: 300px; max-height: 150px; border-radius: 5%;">
+                            <source src="@basicLesson.VideoURL">
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @if (basicLesson.Title.Length <= 32)
+                            {
+                                @basicLesson.Title.ToUpperInvariant()
+                            }
+                            else
+                            {
+                                @basicLesson.Title.Substring(0, 32).ToUpperInvariant()
+                            }
+                            ...
+                        </h5>
+                        <p class="card-text">
+                            <b>Descripción: </b>
+                            @if (basicLesson.Description.Length <= 55)
+                            {
+                                @basicLesson.Description
+                            }
+                            else
+                            {
+                                @basicLesson.Description.Substring(0, 55)
+                            }
+                            ...
+                        </p>
+                        <p class="card-text"><b>Profesor: </b>@basicLesson.Professor?.FullName</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-around">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                            {
+                                <a asp-action="Edit" asp-route-id="@basicLesson.Id"><i class="fa-solid fa-pen-to-square" id="edit-icon"></i></a>
+                            }
+                            <a asp-action="Details" asp-route-id="@basicLesson.Id"><i class="fa-solid fa-circle-info" id="info-icon"></i></a>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+                            {
+                                <a asp-action="Delete" asp-route-id="@basicLesson.Id"><i class="fa-solid fa-trash-can" id="delete-icon"></i></a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin))
+{
+    <div class="d-flex justify-content-end align-items-lg-end" style="position:fixed; right:20px; bottom: 15px;">
+        <a asp-action="Create" class="btn btn-outline-success">
+            <i class="fa-solid fa-circle-plus"></i> Añadir Nuevo
+        </a>
+    </div>
+}

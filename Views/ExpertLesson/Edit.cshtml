@@ -1,0 +1,83 @@
+﻿@model NewExpertLessonVM
+
+@{
+    ViewData["Title"] = "Edit a Expert Lesson";
+}
+<div class="row mt-3">
+    <div class="card col-md-8 offset-2">
+        <div class="card-body">
+            <h5 class="card-title">Editar Clase Experta</h5>
+
+            <!-- Horizontal Form -->
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group text-center mb-2">
+                    <video controls preload="auto" class="rounded" style="max-width: 200px;" id="VideoPreview"></video>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="VideoURL" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="VideoURL" type="text" class="form-control">
+                        <span asp-validation-for="VideoURL" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="Title" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Title" type="text" class="form-control">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="ProfessorId" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <select asp-for="ProfessorId" class="form-select" asp-items="ViewBag.Professors">
+                            <option disabled selected>-- Seleccione --</option>
+                        </select>
+                        <span asp-validation-for="ProfessorId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="TopicsIds" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <select asp-for="TopicsIds" class="form-select" asp-items="ViewBag.Topics"></select>
+                        <span asp-validation-for="TopicsIds" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Price" type="text" class="form-control">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button asp-action="Index" class="btn btn-secondary">Mostrar Todos</button>
+                    <input type="submit" value="Actualizar" class="btn btn-warning">
+                </div>
+            </form><!-- End Horizontal Form -->
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('VideoPreview');
+            output.src = $("#VideoURL").val();
+        })
+
+        $("#VideoURL").on("change", function () {
+            var output = document.getElementById('VideoPreview');
+            output.src = $(this).val();
+        })
+    </script>
+}

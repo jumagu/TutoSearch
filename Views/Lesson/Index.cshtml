@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Lesson>
+@using TutoSearch.Models
+
+@{
+    ViewData["Title"] = "List Of Lessons";
+}
+<div class="container-fluid mt-3">
+    <div class="row d-flex justify-content-center align-items-center">
+        @foreach (var lesson in Model)
+        {
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <div class="card mb-3" style="width: 400px; height: 100%;">
+                    <div class="d-flex justify-content-center align-items-center m-2">
+                        <video controls preload="auto" style="max-width: 350px; max-height:200px; border-radius: 5%;">
+                            <source src="@lesson.VideoURL">
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @if (lesson.Title.Length <= 32)
+                            {
+                                @lesson.Title.ToUpperInvariant()
+                            }
+                            else
+                            {
+                                @lesson.Title.Substring(0, 32).ToUpperInvariant()
+                            }
+                            ...
+                        </h5>
+                        <p class="card-text">
+                            <b>Descripción: </b>
+                            @if (lesson.Description.Length <= 55)
+                            {
+                                @lesson.Description
+                            }
+                            else
+                            {
+                                @lesson.Description.Substring(0, 55)
+                            }
+                            ...
+                        </p>
+                        <p class="card-text"><b>Profesor: </b>@lesson.Professor?.FullName</p>
+                        <div class="d-flex justify-content-center">
+                            <!-- <a class="btn btn-success">Añadir al Carrito</a> -->
+                            <a asp-action="Details" asp-route-id="@lesson.Id" class="btn btn-primary"><i class="fa-solid fa-circle-info"></i> Mostrar Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model Lesson
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="d-flex justify-content-center align-items-center mt-3">
+    <div class="card mb-3" style="width: 700px;">
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <video controls preload="auto" style="max-width: 600px; max-height:300px; border-radius: 5%;">
+                <source src="@Model.VideoURL">
+            </video>
+        </div>
+        <div class="card-body">
+
+            <h4 class="card-title">@Model.Title</h4>
+            <p class="card-text"><b>Descripción: </b>@Model.Description</p>
+
+            <p class="card-text"><b>Profesor: </b><a asp-controller="Professor" asp-action="Details" asp-route-id="@Model.ProfessorId">@Model.Professor.FullName</a></p>
+
+            <div class="d-flex align-items-center gap-1">
+                <p class="m-0 p-0"><b>Temas: </b></p>
+                @foreach (var topic in Model.Topics_Lessons)
+                {
+                    <span class="badge bg-primary" style="height: fit-content">
+                        <a asp-controller="Topic" asp-action="Details" asp-route-id="@topic.TopicId" style="text-decoration: none; color: white; padding: 0; margin: 0;">@topic.Topic.Name</a>
+                    </span>
+                }
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center">
+                <a asp-action="Index" class="btn btn-success">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

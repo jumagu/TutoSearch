@@ -1,0 +1,45 @@
+﻿@model Topic
+@using TutoSearch.Data.Enum
+
+@{
+    ViewData["Title"] = "Add a new Topic";
+}
+<div class="row mt-3">
+    <div class="card col-md-8 offset-2">
+        <div class="card-body">
+            <h5 class="card-title">Añadir Nuevo Tema</h5>
+
+            <!-- Horizontal Form -->
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" type="text" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="TopicSubject" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <select asp-for="TopicSubject" class="form-select" asp-items="Html.GetEnumSelectList<TopicSubject>()">
+                            <option selected>Seleccione la Asignatrua</option>
+                        </select>
+                        <span asp-validation-for="TopicSubject" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <button asp-action="Index" class="btn btn-secondary">Mostrar Todos</button>
+                    <input type="submit" value="Añadir" class="btn btn-primary">
+                </div>
+            </form><!-- End Horizontal Form -->
+        </div>
+    </div>
+</div>

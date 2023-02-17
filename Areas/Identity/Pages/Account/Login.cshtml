@@ -1,0 +1,50 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<main class="form-signin w-100 m-auto">
+    <form id="account" method="post" class="d-flex flex-column align-items-center">
+
+        <img class="mb-4" src="~/tutosearchlogo.png" alt="" width="100" height="100">
+        <h1 class="h3 mb-3 fw-normal">Iniciar sesión</h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-floating w-100">
+            <input asp-for="Input.Email" type="email" class="form-control" autocomplete="username" aria-required="true" id="floatingInput" placeholder="name@example.com">
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <label asp-for="Input.Email" for="floatingInput">Correo electrónico</label>
+        </div>
+        <div class="form-floating w-100">
+            <input asp-for="Input.Password" type="password" class="form-control" style="margin-bottom: 10px;" autocomplete="current-password" aria-required="true" id="floatingPassword" placeholder="Password">
+            <label asp-for="Input.Password" for="floatingPassword">Contraseña</label>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label asp-for="Input.RememberMe">
+                <input asp-for="Input.RememberMe" type="checkbox" value="remember-me">
+                @Html.DisplayNameFor(m => m.Input.RememberMe)
+            </label>
+        </div>
+        <button id="login-submit" class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>
+        <div class="mt-2">
+            <p class="m-0 text-center">
+                <a id="forgot-password" asp-page="./ForgotPassword">¿Olvidó su contraseña?</a>
+            </p>
+            <p class="m-0 text-center">
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrarse como nuevo usuario</a>
+            </p>
+            <p class="m-0 text-center">
+                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Reenviar la confirmación por correo electrónico</a>
+            </p>
+        </div>
+        <p class="mt-4 mb-3 text-muted">© 2022</p>
+    </form>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
